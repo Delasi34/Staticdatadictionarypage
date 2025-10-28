@@ -13,147 +13,124 @@ import {
 interface DataDictionaryEntry {
   dataSubset: string;
   field: string;
-  businessName: string;
+  fieldDescription: string;
   dataType: string;
-  required: boolean;
-  constraints: string[];
-  relatedTo: string;
   example: string;
+  source: string;
+  sourceSystem: string;
   notes: string;
 }
 
 const sampleData: DataDictionaryEntry[] = [
   {
     dataSubset: "Customer Data",
-    field: "type",
-    businessName: "Type",
-    dataType: "STRING(50)",
-    required: true,
-    constraints: ["NOT NULL", "ENUM"],
-    relatedTo: "",
-    example: "Business",
-    notes: "CUS-001",
+    field: "customer_segment",
+    fieldDescription: "Customer grouping from CDM-DIL with related subsidy and discount data.",
+    dataType: "STRING(100)",
+    example: "Enterprise",
+    source: "Master-data configured",
+    sourceSystem: "CDM-DIL",
+    notes: "",
   },
   {
     dataSubset: "Customer Data",
     field: "company_name",
-    businessName: "Company Name",
-    dataType: "STRING(255)",
-    required: false,
-    constraints: [],
-    relatedTo: "",
+    fieldDescription: "Legal name of the business.",
+    dataType: "STRING(100)",
     example: "Acme Corporation",
-    notes: "CUS-002",
+    source: "Synthetic",
+    sourceSystem: "CDM-DIL",
+    notes: "",
   },
   {
     dataSubset: "Customer Data",
     field: "first_name",
-    businessName: "First Name",
+    fieldDescription: "Given name of the customer created in new customer process in OTR.",
     dataType: "STRING(100)",
-    required: true,
-    constraints: ["NOT NULL"],
-    relatedTo: "",
     example: "John",
-    notes: "CUS-003",
+    source: "Synthetic",
+    sourceSystem: "CDM-DIL",
+    notes: "",
   },
   {
     dataSubset: "Customer Data",
-    field: "last_name",
-    businessName: "Last Name",
+    field: "name",
+    fieldDescription: "Family name of the customer created in new customer process in OTR.",
     dataType: "STRING(100)",
-    required: true,
-    constraints: ["NOT NULL"],
-    relatedTo: "",
     example: "Doe",
-    notes: "CUS-004",
+    source: "Synthetic",
+    sourceSystem: "CDM-DIL",
+    notes: "",
   },
   {
     dataSubset: "Customer Data",
     field: "address",
-    businessName: "Address",
+    fieldDescription: "Full postal address for billing, delivery including street, city, post code but no country.",
     dataType: "STRING(500)",
-    required: false,
-    constraints: [],
-    relatedTo: "",
     example: "123 Main Street, New York, NY 10001",
-    notes: "CUS-005",
+    source: "Synthetic",
+    sourceSystem: "CDM-DIL",
+    notes: "",
   },
   {
     dataSubset: "Customer Data",
-    field: "email_id",
-    businessName: "E-Mail ID",
+    field: "email",
+    fieldDescription: "Customer contact email used for invoicing, offer document among others. Real emails maintained for some test steps but usually created synthetically.",
     dataType: "STRING(255)",
-    required: true,
-    constraints: ["UNIQUE", "EMAIL_FORMAT"],
-    relatedTo: "",
     example: "john.doe@example.com",
-    notes: "CUS-006, VAL-001",
+    source: "Real / Synthetic",
+    sourceSystem: "CDM-DIL",
+    notes: "",
   },
   {
     dataSubset: "Customer Data",
     field: "phone",
-    businessName: "Phone",
-    dataType: "STRING(20)",
-    required: false,
-    constraints: ["PHONE_FORMAT"],
-    relatedTo: "",
+    fieldDescription: "Customer phone number with valid country code.",
+    dataType: "STRING(50)",
     example: "+1-555-123-4567",
-    notes: "CUS-007",
+    source: "Synthetic",
+    sourceSystem: "CDM-DIL",
+    notes: "",
   },
   {
     dataSubset: "Customer Data",
     field: "vat_id",
-    businessName: "Vat ID",
+    fieldDescription: "Customer VAT number consisting of 11 digits depending on the country used for taxes on invoices and only applies to business customers.",
     dataType: "STRING(50)",
-    required: false,
-    constraints: ["UNIQUE"],
-    relatedTo: "",
     example: "DE123456789",
-    notes: "CUS-008, TAX-001",
+    source: "Synthetic",
+    sourceSystem: "CDM-DIL",
+    notes: "",
   },
   {
     dataSubset: "Customer Data",
     field: "ucid",
-    businessName: "UCID",
+    fieldDescription: "Unique system-assigned ID for each customer that's used across CRM, fleet, order, and ERP platforms.",
     dataType: "STRING(50)",
-    required: false,
-    constraints: ["UNIQUE"],
-    relatedTo: "",
     example: "UCID-987654321",
-    notes: "CUS-009",
+    source: "System-assigned",
+    sourceSystem: "One ERP",
+    notes: "",
   },
   {
     dataSubset: "Customer Data",
-    field: "debtor_account",
-    businessName: "Debtor Account",
+    field: "debtor_account_number",
+    fieldDescription: "OneERP customer identifier.",
     dataType: "STRING(50)",
-    required: false,
-    constraints: [],
-    relatedTo: "",
     example: "DEB-12345",
-    notes: "CUS-010, FIN-001",
+    source: "ERP-assigned",
+    sourceSystem: "One ERP",
+    notes: "",
   },
   {
     dataSubset: "Customer Data",
     field: "payment_term",
-    businessName: "Payment Term",
+    fieldDescription: "The pre-defined window in which the payment is expected. NB45 is equivalent to 45 days.",
     dataType: "STRING(50)",
-    required: false,
-    constraints: ["ENUM"],
-    relatedTo: "",
-    example: "Net 30",
-    notes: "CUS-011, PAY-001",
-  },
-  {
-    dataSubset: "Customer Data",
-    field: "customer_segment",
-    businessName: "Customer Segment",
-    dataType: "STRING(100)",
-    required: false,
-    constraints: ["ENUM"],
-    relatedTo: "",
-    example: "Enterprise",
-    notes: "CUS-012, SEG-001",
+    example: "FB45",
+    source: "Master-data configured",
+    sourceSystem: "One ERP",
+    notes: "",
   },
 ];
 
@@ -210,10 +187,12 @@ export function DataDictionary() {
     <div className="w-full min-h-screen p-8">
       <div className="max-w-[1600px] mx-auto space-y-6">
         <div className="space-y-2">
-          <h1>Data Dictionary</h1>
+          <h1>Retail of the Future Test Data Dictionary</h1>
           <p className="text-muted-foreground">
-            Database schema reference with field definitions, types, and
-            constraints
+            Field definitions, data types, examples, and lineage across all data subsets: Customers, Financing, Test Users & Agents, Customer Centers, Vehicles, Pricing, Subsidies.
+          </p>
+          <p className="text-sm text-muted-foreground">
+            Last updated: 29 Oct 2025
           </p>
         </div>
 
@@ -254,13 +233,13 @@ export function DataDictionary() {
                 <tr>
                   <th
                     className="text-left p-3 border-b border-[#1e6b7a] text-white font-medium"
-                    style={{ width: "150px", minWidth: "150px" }}
+                    style={{ width: "140px", minWidth: "140px" }}
                   >
-                    Data Subset
+                    Data Type
                   </th>
                   <th
                     className="text-left p-3 border-b border-[#1e6b7a] text-white font-medium"
-                    style={{ width: "320px", minWidth: "320px" }}
+                    style={{ width: "200px", minWidth: "200px" }}
                   >
                     <Button
                       variant="ghost"
@@ -274,33 +253,27 @@ export function DataDictionary() {
                   </th>
                   <th
                     className="text-left p-3 border-b border-[#1e6b7a] text-white font-medium"
-                    style={{ width: "140px", minWidth: "140px" }}
+                    style={{ width: "350px", minWidth: "350px" }}
                   >
-                    Data Type
-                  </th>
-                  <th
-                    className="text-left p-3 border-b border-[#1e6b7a] text-white font-medium"
-                    style={{ width: "80px", minWidth: "80px" }}
-                  >
-                    Required
-                  </th>
-                  <th
-                    className="text-left p-3 border-b border-[#1e6b7a] text-white font-medium"
-                    style={{ width: "220px", minWidth: "220px" }}
-                  >
-                    Constraints
-                  </th>
-                  <th
-                    className="text-left p-3 border-b border-[#1e6b7a] text-white font-medium"
-                    style={{ width: "180px", minWidth: "180px" }}
-                  >
-                    Related To
+                    Field Description
                   </th>
                   <th
                     className="text-left p-3 border-b border-[#1e6b7a] text-white font-medium"
                     style={{ width: "220px", minWidth: "220px" }}
                   >
                     Example
+                  </th>
+                  <th
+                    className="text-left p-3 border-b border-[#1e6b7a] text-white font-medium"
+                    style={{ width: "180px", minWidth: "180px" }}
+                  >
+                    Source
+                  </th>
+                  <th
+                    className="text-left p-3 border-b border-[#1e6b7a] text-white font-medium"
+                    style={{ width: "150px", minWidth: "150px" }}
+                  >
+                    Source System
                   </th>
                   <th
                     className="text-left p-3 border-b border-[#1e6b7a] text-white font-medium"
@@ -316,21 +289,14 @@ export function DataDictionary() {
                     key={index}
                     className="border-b hover:bg-muted/30 transition-colors"
                   >
-                    <td className="p-3">{entry.dataSubset}</td>
-                    <td className="p-3">{entry.field}</td>
                     <td className="p-3">{entry.dataType}</td>
-                    <td className="p-3 text-center">
-                      {entry.required ? "✓" : "−"}
-                    </td>
-                    <td className="p-3">
-                      {entry.constraints.join(", ")}
-                    </td>
-                    <td className="p-3">
-                      {entry.relatedTo}
-                    </td>
+                    <td className="p-3">{entry.field}</td>
+                    <td className="p-3">{entry.fieldDescription}</td>
                     <td className="p-3 text-muted-foreground">
                       {entry.example}
                     </td>
+                    <td className="p-3">{entry.source}</td>
+                    <td className="p-3">{entry.sourceSystem}</td>
                     <td className="p-3 text-muted-foreground">
                       {entry.notes}
                     </td>

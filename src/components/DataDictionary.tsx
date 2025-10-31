@@ -187,7 +187,7 @@ export function DataDictionary() {
     <div className="w-full min-h-screen p-8">
       <div className="max-w-[1600px] mx-auto space-y-6">
         <div className="space-y-2">
-          <h1>Retail of the Future Test Data Dictionary</h1>
+          <h1 className="text-4xl font-extrabold">Retail of the Future Test Data Dictionary</h1>
           <p className="text-muted-foreground">
             Field definitions, data types, examples, and lineage across all data subsets: Customers, Financing, Test Users & Agents, Customer Centers, Vehicles, Pricing, Subsidies.
           </p>

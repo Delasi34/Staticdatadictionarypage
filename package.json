@@ -8,6 +8,7 @@
     "deploy": "gh-pages -d build"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.16",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "@vitejs/plugin-react-swc": "^4.2.0",

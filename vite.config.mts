@@ -1,16 +1,20 @@
+/// <reference types="node" />
+
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react-swc';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
+// Resolve directory references in ESM context
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// https://vitejs.dev/config/
 export default defineConfig({
- 
   base: '/Staticdatadictionarypage/',
 
   plugins: [react()],
+
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
     alias: {
@@ -55,10 +59,13 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+
   build: {
     target: 'esnext',
     outDir: 'docs',
+    emptyOutDir: true, // ensures clean rebuild
   },
+
   server: {
     port: 3000,
     open: true,
